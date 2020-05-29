@@ -1,0 +1,45 @@
+﻿@model Practica_MVC.Models.ViewModels.UsuarioViewModel
+
+@{
+    ViewBag.Title = "Agregar Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Agregar</h2>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Add","Usuario",FormMethod.Post,new { role="form",@class=""}))
+        {
+            @Html.AntiForgeryToken()             
+            @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessage("Email", new { @class = "text-danger" })
+            <br /><br />
+            @Html.LabelFor(model => model.Password)
+            @Html.EditorFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessage("Password", new { @class = "text-danger" })
+            <br /><br />
+            @Html.LabelFor(model => model.ConfirmarPassword)
+            @Html.EditorFor(model => model.ConfirmarPassword, new { @class = "form-control" })
+            @Html.ValidationMessage("ConfirmarPassword", new { @class = "text-danger" })
+            <br /><br />
+            @Html.LabelFor(model => model.Edad)
+            @Html.EditorFor(model => model.Edad, new { @class = "form-control" })
+            @Html.ValidationMessage("Edad", new { @class = "text-danger" })
+            <br /><br />
+            <div style="text-align:right;">                
+               <input type="submit" value="Guardar" class="btn btn-success" />               
+            </div>
+            
+        }
+    </div>
+
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Regresar", "Inicio")
+</div>

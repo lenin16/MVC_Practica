@@ -1,0 +1,60 @@
+﻿@model List<Practica_MVC.Models.TableViewModels.UsuarioTableViewModel>
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Usuario</h2>
+<div class="row">
+    <div class="col-md-12">
+        <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Usuario/Add")'" value="Nuevo"/>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Edad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                    <tr>
+                        <td>@oElemento.IdUsuario</td>
+                        <td>@oElemento.Email</td>
+                        <td>@oElemento.Edad</td>
+                        <td>
+                            <input onclick="JsDelete(@oElemento.IdUsuario)" value="Delete" type="button" class="btn btn-danger"/>
+                            <input onclick="document.location.href='@Url.Content("~/Usuario/Edit/"+oElemento.IdUsuario)'" value="Editar" type="button" class="btn btn-success" />
+                        </td>                        
+                    </tr>
+                }
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    
+    <script>
+        function JsDelete(id) {
+            if(confirm("Estas seguro de eliminar este usuario"))
+            {
+                url = "@Url.Content("~/Usuario/Delete")" + "/" + id;
+
+                $.post(url, function (data) {
+                    if (data == "1") {
+                        document.location.href = "@Url.Content("~/Usuario/Inicio")";
+                    } else {
+                        alert("Ocurrio un error");
+                    }
+                })
+            }
+        }
+    </script>
+    }
